@@ -1,4 +1,4 @@
-FROM openjdk:9-jdk-alpine
+FROM openjdk:17-jdk-alpine
 EXPOSE 9000
 ARG JAR_FILE=target/*.jar
 ADD ${JAR_FILE} app.jar
