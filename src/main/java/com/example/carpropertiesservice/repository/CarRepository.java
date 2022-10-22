@@ -10,4 +10,5 @@ import com.example.carpropertiesservice.model.Car;
 public interface CarRepository extends JpaRepository<Car, Integer> {
     Car findCarByCarBrand(String carBrand);
     List<Car> findCarsByNumberOfSeats(int nrofseats);
+    List<Car> findAll();
 }
