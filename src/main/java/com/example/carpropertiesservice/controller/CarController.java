@@ -38,8 +38,13 @@ public class CarController {
     }
 
     @GetMapping("/cars/{carBrand}")
-    public Car getBookByISBN(@PathVariable String carBrand){
+    public Car getCarByCarBrand(@PathVariable String carBrand){
         return carRepository.findCarByCarBrand(carBrand);
+    }
+
+    @GetMapping("/cars")
+    public List<Car> getCarBrands(){
+        return carRepository.findAll();
     }
 
 }
