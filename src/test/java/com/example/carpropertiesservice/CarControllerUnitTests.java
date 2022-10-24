@@ -42,7 +42,7 @@ public class CarControllerUnitTests {
 
 
     @Test
-    public void givenCars_whenGetCarBrandByNumberOfSeats_thenReturnJsonCars() throws Exception{
+    public void givenCars_whenFindBrandByNumberOfSeats_thenReturnJsonCars() throws Exception{
         given(carRepository.findCarsByNumberOfSeats(4)).willReturn(cars4Seats);
 
         mockMvc.perform(get("/cars/seats/{nrofseats}",4))
