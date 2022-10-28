@@ -39,6 +39,7 @@ public class CarControllerUnitTests {
     private Car car3 = new Car("Volvo",215,4);
 
     private List<Car> cars4Seats = Arrays.asList(car1,car3);
+    private List<Car> allCars = Arrays.asList(car1,car2,car3);
 
 
     @Test
@@ -57,6 +58,35 @@ public class CarControllerUnitTests {
             .andExpect(jsonPath("$[1].numberOfSeats",is(4)));
 
     }
+@Test
+    public void givenCar_whenFindCarByCarBrand_thenReturnJsonCar() throws Exception{
+        given(carRepository.findCarByCarBrand("Volvo")).willReturn(car3);
 
+        mockMvc.perform(get("/cars/{carBrand}","Volvo"))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.carBrand",is("Volvo")))
+            .andExpect(jsonPath("$.maxSpeed",is(215)))
+            .andExpect(jsonPath("$.numberOfSeats",is(4)));
 
+}
+@Test
+public void givenCars_whenFindAll_thenReturnJsonCars() throws Exception{
+    given(carRepository.findAll()).willReturn(allCars);
+
+    mockMvc.perform(get("/cars",4))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(3)))
+        .andExpect(jsonPath("$[0].carBrand", is("Mercedes")))
+        .andExpect(jsonPath("$[0].maxSpeed", is(220)))
+        .andExpect(jsonPath("$[0].numberOfSeats",is(4)))
+        .andExpect(jsonPath("$[1].carBrand", is("Renault")))
+        .andExpect(jsonPath("$[1].maxSpeed", is(185)))
+        .andExpect(jsonPath("$[1].numberOfSeats",is(5)))
+        .andExpect(jsonPath("$[2].carBrand", is("Volvo")))
+        .andExpect(jsonPath("$[2].maxSpeed", is(215)))
+        .andExpect(jsonPath("$[2].numberOfSeats",is(4)));
+
+}
 }
