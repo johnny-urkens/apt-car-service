@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.BDDMockito.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -91,5 +91,29 @@ public class CarControllerIntegrationTests {
             .andExpect(jsonPath("$[2].maxSpeed", is(215)))
             .andExpect(jsonPath("$[2].numberOfSeats",is(4)));
 
+    }
+    @Test
+    public void testSetCarBrand() {
+        String carBrand = "Seat";
+        Car car = new Car();
+        car.setCarBrand(carBrand);
+        assertEquals(car.getCarBrand(), carBrand);
+    }
+
+    @Test
+    public void testSetMaxSpeed() {
+        Integer maxSpeed = 100;
+        Car car = new Car();
+        car.setMaxSpeed(maxSpeed);
+        assertEquals(car.getMaxSpeed(), maxSpeed);
+    }
+
+
+    @Test
+    public void testSetNrOfSeats() {
+        Integer nrOfSeats = 3;
+        Car car = new Car();
+        car.setNumberOfSeats(nrOfSeats);
+        assertEquals(car.getNumberOfSeats(), nrOfSeats);
     }
 }
