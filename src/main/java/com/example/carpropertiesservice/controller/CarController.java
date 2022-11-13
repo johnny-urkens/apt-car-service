@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.PostConstruct;
 import java.util.List;
-
 import com.example.carpropertiesservice.model.Car;
 import com.example.carpropertiesservice.repository.CarRepository;
 
@@ -21,15 +20,13 @@ public class CarController {
     @PostConstruct
     public void fillDB(){
         if(carRepository.count()==0){
-            carRepository.save(new Car("Audi A4", 200, 5));
+            carRepository.save(new Car("Audi", 200, 5));
             carRepository.save(new Car("Lamborghini",300,2));
             carRepository.save(new Car("Traktor",30,1));
             carRepository.save(new Car("Tesla",300,4));
             carRepository.save(new Car("Ferarri",300,2));
-            carRepository.save(new Car("Volkswagen Golf",180,5));
+            carRepository.save(new Car("Volkswagen",180,5));
         }
-
-//        System.out.println(carRepository.findCarByCarBrand("Audi A4").getMaxSpeed());
     }
 
     @GetMapping("/cars/seats/{nrofseats}")
@@ -39,7 +36,7 @@ public class CarController {
 
     @GetMapping("/cars/{carBrand}")
     public Car getCarByCarBrand(@PathVariable String carBrand){
-        return carRepository.findCarByCarBrand(carBrand);
+        return carRepository.findCarByCarBrand(carBrand.toLowerCase());
     }
 
     @GetMapping("/cars")
